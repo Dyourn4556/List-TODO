@@ -1,8 +1,8 @@
 import test from "@playwright/test";
-import { HomePage } from "../src/pageObject/pages/HomePage";
-import { SignupPage } from "../src/pageObject/pages/SignupPage"; 
+import { HomePage } from "../src/PageObject/pages/HomePage";
+import { SignupPage } from "../src/PageObject/pages/SignupPage"; 
 import { getFakeEmail, getFakeFirstName, getFakeLastName, getFakePassword } from "../src/helper/FakeUserData";
-import { ListToDoPage } from "../src/pageObject/pages/ListToDoPage";
+import { ListToDoPage } from "../src/PageObject/pages/ListToDoPage";
 
 
 test.describe('Auth', () => {

@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { HomePageLocators } from '../locator/HomePageLocator';
+import { HomePageLocators } from '../Locator/HomePageLocator';
 import { BaseUrl } from '../../resources/BaseUrl';
 
 
