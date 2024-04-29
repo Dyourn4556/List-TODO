@@ -1,45 +1,42 @@
 import test from "@playwright/test";
-import { HomePage } from "../src/PageObject/HomePage";
-import { SignupPage } from "../src/PageObject/SignUpPage"; 
-import { Provider } from "../src/AddedInfo/Provider";
-import { getFakeEmail, getFakeFirstName, getFakeLastName, getFakePassword } from "../src/DataGenerator/FakeUserData";
-import { ListToDoPage } from "../src/PageObject/ListToDoPage";
+import { HomePage } from "../src/pageObject/pages/HomePage";
+import { SignupPage } from "../src/pageObject/pages/SignupPage"; 
+import { getFakeEmail, getFakeFirstName, getFakeLastName, getFakePassword } from "../src/helper/FakeUserData";
+import { ListToDoPage } from "../src/pageObject/pages/ListToDoPage";
 
 
-test.describe('Positive Login', () => {
+test.describe('Auth', () => {
     let homePage: HomePage;
     let signupPage: SignupPage;
-    let provider: Provider;
     let listToDoPage: ListToDoPage;
 
-   
+    const email = getFakeEmail();
+    const password = getFakePassword();
+    const lastName = getFakeLastName();
+    const firstName = getFakeFirstName();
+
     test.beforeEach(async ({ page })=>{
-      
         homePage = new HomePage(page);  
         signupPage = new SignupPage(page);
-        provider = new Provider(page);
         listToDoPage = new ListToDoPage(page);
-
     })
 
-    test('Registration', async ({ page }) => {
-
-        await provider.goToResourсe();
-        await homePage.assertingOfSiteIconIsVisible();
+    test('shoud allow user to login', async ({ page }) => {
+        await homePage.goToHomePage();
+        await homePage.assertSiteIconIsVisible();
         
-        await homePage.goToSignPage();
-        await signupPage.assertingOfHeaderIsVisible();
+        await homePage.clickSignButton();
+        await signupPage.assertHeaderIsVisible();
 
-        await signupPage.fillFakeFirstName(getFakeFirstName());
-        await signupPage.fillFakeLastName(getFakeLastName());
-        await signupPage.fillFakeEmail(getFakeEmail());
-        await signupPage.fillFakePassword(getFakePassword());
-        await signupPage.confirmFakePassword(getFakePassword());
+        await signupPage.fillFirstName(firstName);
+        await signupPage.fillLastName(lastName);
+        await signupPage.fillEmail(email);
+        await signupPage.fillPassword(password);
+        await signupPage.confirmPassword(password);
 
         await signupPage.pressSignupButton();
 
-        await listToDoPage.assertingHeaderOfToDoListIsVisible();
-      
+        await listToDoPage.assertHeaderOfToDoListIsVisible();
       });
 
 })
